@@ -1,2 +1,2 @@
 require 'sis_circular_array'
-SisCircularArray:CLI.new
+SisCircularArray::CLI.new

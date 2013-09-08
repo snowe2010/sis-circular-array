@@ -1,7 +1,8 @@
 require "sis_circular_array/version"
+require_all 'lib'
 
 module SisCircularArray
-  class CLI < Trollop
+  class CLI
 
     USAGE_MESSAGE = <<-HERE
       A usage message
