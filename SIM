@@ -1,0 +1,2 @@
+#!/bin/bash
+bundle exec ./bin/lady_bug_game $1 $2 $3 $4
