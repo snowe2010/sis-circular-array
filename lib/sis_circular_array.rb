@@ -1,12 +1,13 @@
 require "sis_circular_array/version"
 require_all 'lib'
 require 'trollop'
+# require 'sis_circular_array'
 
 module SisCircularArray
   class CLI
 
     USAGE_MESSAGE = <<-HERE
-      SiSCircularArray takes two different sets of arguments, one for R and one for C. 
+      SisCircularArray takes two different sets of arguments, one for R and one for C. 
       Specify R -h or C -h to get help for each command.
     HERE
     SUB_COMMANDS = %w{R C}
@@ -34,14 +35,24 @@ module SisCircularArray
       cmd = ARGV.shift # get the subcommand
       cmd_opts = case cmd
       when "R" # parse A options
+        
         Trollop::options do 
           banner R_MESSAGE
         end
         Trollop::die "Wrong number of Arguments for Capital R" if ARGV.length != 2
         Trollop::die "<s> needs to be an integer" if not ARGV[0].is_i?
         Trollop::die "<demand.dat> needs to be a filename in the current directory" if not File.file?(ARGV[1])
-        @s = ARGV.shift.to_i
-        @file = ARGV.shift
+        
+        s = ARGV.shift.to_i
+        file = ARGV.shift
+        # ::SisCircularArray::SisCircularArray.get_demand file
+        sis = ::SisCircularArray::SisCircularArray.new s, file
+        sis.algorithm_1_3_1
+        sis.order_frequency
+        puts "Item cost: #{sis.average_order * sis.item_cost}"
+        puts "Setup cost: #{sis.order_frequency * sis.setup}"
+        puts "Holding cost: #{sis.time_averaged_holding_level * sis.hold}"
+        puts "Shortage cost: #{sis.time_averaged_shortage_level * sis.shortage}"
       when "C"  # parse B options
         Trollop::options do 
           banner C_MESSAGE
