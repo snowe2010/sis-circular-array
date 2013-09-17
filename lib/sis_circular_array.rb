@@ -47,12 +47,11 @@ module SisCircularArray
         file = ARGV.shift
         # ::SisCircularArray::SisCircularArray.get_demand file
         sis = ::SisCircularArray::SisCircularArray.new s, file
-        sis.algorithm_1_3_1
-        sis.order_frequency
-        puts "Item cost: #{sis.average_order * sis.item_cost}"
-        puts "Setup cost: #{sis.order_frequency * sis.setup}"
-        puts "Holding cost: #{sis.time_averaged_holding_level * sis.hold}"
-        puts "Shortage cost: #{sis.time_averaged_shortage_level * sis.shortage}"
+        inven, ord = sis.algorithm_1_3_1
+        puts "Item cost #{sis.average_order} * #{sis.item_cost}: #{sis.average_order * sis.item_cost}"
+        puts "Setup cost #{sis.order_frequency} * #{sis.setup}: #{sis.order_frequency * sis.setup}"
+        puts "Holding cost #{sis.time_averaged_holding_level} * #{sis.hold}: #{sis.time_averaged_holding_level * sis.hold}"
+        puts "Shortage cost #{sis.time_averaged_shortage_level} * #{sis.shortage}: #{sis.time_averaged_shortage_level * sis.shortage}"
       when "C"  # parse B options
         Trollop::options do 
           banner C_MESSAGE
